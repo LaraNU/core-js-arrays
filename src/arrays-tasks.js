@@ -341,8 +341,16 @@ function selectMany(arr, childrenSelector) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
-function calculateBalance(/* arr */) {
-  throw new Error('Not implemented');
+function calculateBalance(arr) {
+  let sum = 0;
+  arr.reduce((accumulator, currentValue) => {
+    currentValue.reduce((acc, curr) => {
+      sum += acc - curr;
+      return curr;
+    });
+    return currentValue;
+  }, 0);
+  return sum;
 }
 
 /**
@@ -357,8 +365,12 @@ function calculateBalance(/* arr */) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  const arrChunks = [];
+  Array.from({ length: Math.ceil(arr.length / chunkSize) }, (el, i) => {
+    return arrChunks.push(arr.slice(i * chunkSize, i * chunkSize + chunkSize));
+  });
+  return arrChunks;
 }
 
 /**
@@ -405,8 +417,15 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  let sum = 0;
+  arr.map((el) => {
+    if (!el) {
+      sum += 1;
+    }
+    return el;
+  });
+  return sum;
 }
 
 /**
@@ -463,8 +482,14 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const hexArr = [];
+  arr.map((el) => {
+    return hexArr.push(
+      `#${Math.abs(el).toString(16).toUpperCase().padStart(6, '0')}`
+    );
+  });
+  return hexArr;
 }
 
 /**
@@ -481,8 +506,11 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  arr.sort((a, b) => {
+    return b - a;
+  });
+  return arr.slice(0, n);
 }
 
 /**
